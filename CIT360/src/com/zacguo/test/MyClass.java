@@ -2,6 +2,8 @@ package com.zacguo.test;
 
 public class MyClass {
 
-	//im lost
+	public static void main(String[] args){
+		System.out.println("Hello, CIT360");
+	}
 	
 }
