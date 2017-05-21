@@ -1,64 +1,149 @@
 package com.zacguo.test;
 
-import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
 import org.quickconnectfamily.json.*;
 
 public class MyJSON {
-	public static void main(String args[]) throws ParseException, JSONException {
+	public static void main(String args[]) throws ParseException, JSONException, IOException {
+
+		printMenu("initMenu");
+
+		Scanner reader = new Scanner(System.in);
+		String inputData = reader.nextLine();
+
+		switch (inputData) {
+		case "1":
+			jUtil();
+			break;
+		case "2":
+			jInStream();
+			break;
+		}
 		
-		jUtil();
-		/*
-		
+		reader.close();
+	}
+
+	private static void printMenu(String menuName) {
+
+		switch (menuName) {
+		case "initMenu":
+			MvcView.printArray(new ArrayList<String>(Arrays.asList("1. Read JSON String", "2. Read JSON File")));
+			System.out.print("Choose your option: ");
+			break;
+		}
+	}
+
+	private static void jUtil() throws JSONException, ParseException, IOException {
+
 		Scanner reader = new Scanner(System.in);
 		String inputData = "";
-		
+
 		System.out.print("Input your JSON String: ");
 		inputData = reader.nextLine();
-		
-		InputStream stream = new ByteArrayInputStream(inputData.getBytes());
 
-		JSONInputStream jsonInput = new JSONInputStream(stream);
-
-		System.out.print("Is it a Key/Value JSON(1) or Array JSON(2)? ");
+		JSONUtilities jsonUtil = new JSONUtilities();
 		
-		inputData = reader.nextLine();
-		
-//		System.out.println(jsonInput.readObject().getClass().getSimpleName());
-//		System.out.println(jsonInput.readObject().getClass().getSimpleName());
+		String inType = jsonUtil.parse(inputData).getClass().getSimpleName();
 
-		
-		if (inputData.equals("1")) {
-//	if (inputData.equals("1")) {
-			HashMap parsedJSONMap = (HashMap) jsonInput.readObject();
-
+		switch (inType) {
+		case "HashMap":
+			HashMap parsedJSONMap = (HashMap) jsonUtil.parse(inputData);
+			System.out.println("We converted the JSON file into a HashMap, and here is the data.");
 			System.out.println(parsedJSONMap);
-		}
-		else if(inputData.equals("2")){
-			ArrayList parsedJSONArray = (ArrayList) jsonInput.readObject();
 
+			saveJSON(parsedJSONMap);
+			
+			break;
+		case "ArrayList":
+			ArrayList parsedJSONArray = (ArrayList) jsonUtil.parse(inputData);
+			System.out.println("We converted the JSON file into an ArrayList, and here is the data.");
 			System.out.println(parsedJSONArray);
+
+			saveJSON(parsedJSONArray);
+			
+			break;
 		}
 		
-		
-		*/
+		reader.close();
+	}
+
+	private static void jInStream() throws JSONException, ParseException, IOException {
+		Scanner reader = new Scanner(System.in);
+		String inputData = "";
+
+		System.out.print("Input your JSON file path: ");
+		inputData = reader.nextLine();
+
+		InputStream inStream = new FileInputStream(new File(inputData));
+
+		Scanner inScanner = new Scanner(inStream);
+
+		String inString = "";
+
+		while (inScanner.hasNext()) {
+			inString += inScanner.nextLine();
+		}
+
+		String inType = new JSONUtilities().parse(inString).getClass().getSimpleName();
+
+		JSONInputStream jsonInput = new JSONInputStream(new FileInputStream(new File(inputData)));
+
+		switch (inType) {
+		case "HashMap":
+			HashMap parsedJSONMap = (HashMap) jsonInput.readObject();
+			System.out.println("We converted the JSON file into a HashMap, and here is the data.");
+			System.out.println(parsedJSONMap);
+
+			saveJSON(parsedJSONMap);
+			
+			break;
+		case "ArrayList":
+			ArrayList parsedJSONArray = (ArrayList) jsonInput.readObject();
+			System.out.println("We converted the JSON file into an ArrayList, and here is the data.");
+			System.out.println(parsedJSONArray);
+
+			saveJSON(parsedJSONArray);
+			
+			break;
+		}
+
+		reader.close();
+		inScanner.close();
 	}
 	
-	private static void jUtil() throws JSONException, ParseException{
-
+	private static void saveJSON(Serializable collection) throws JSONException, IOException{
+		System.out.println("-------------------------------------------------------");
+		System.out.print("Do you want to save the object to a new file?(y/n) ");
+		
 		Scanner reader = new Scanner(System.in);
-		String inputData = "";
 		
-		System.out.print("Input your JSON String: ");
-		inputData = reader.nextLine();
+		String inputText = reader.next();
 		
-		JSONUtilities jsonUtil = new JSONUtilities();
+		if (inputText.equals("y")) {
+			
+			System.out.print("Please input file path: ");	
+			
+			String outputFileNamePath = reader.next();
+			
+			FileOutputStream fout = new FileOutputStream(outputFileNamePath);
+			
+			JSONOutputStream jsonOut = new JSONOutputStream(fout);
 
-		System.out.println(jsonUtil.parse(inputData).getClass().getSimpleName());
-		System.out.println(jsonUtil.parse(inputData).getClass().getSimpleName());
+			jsonOut.writeObject(collection);
+			
+			System.out.println("Your file has been successfully saved.");
+		}
+		
+		reader.close();
 	}
 }
