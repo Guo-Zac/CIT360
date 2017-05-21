@@ -1,3 +1,7 @@
+/*
+ * MyJSON.java by Zac Guo for CIT 360
+ */
+
 package com.zacguo.test;
 
 import java.io.File;
@@ -11,6 +15,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/*
+ * QCJSON is from https://github.com/yenrab/qcJSON
+ */
 import org.quickconnectfamily.json.*;
 
 public class MyJSON {
@@ -21,6 +28,10 @@ public class MyJSON {
 		Scanner reader = new Scanner(System.in);
 		String inputData = reader.nextLine();
 
+		/*
+		 * There are three main functions of QCJSON, read string, read file and save file.
+		 * Option 1 ask the user to read JSON string, option 2 ask the user to read in a file.
+		 */
 		switch (inputData) {
 		case "1":
 			jUtil();
@@ -33,8 +44,10 @@ public class MyJSON {
 		reader.close();
 	}
 
+	/*
+	 * Print out menus with the MvcView class
+	 */
 	private static void printMenu(String menuName) {
-
 		switch (menuName) {
 		case "initMenu":
 			MvcView.printArray(new ArrayList<String>(Arrays.asList("1. Read JSON String", "2. Read JSON File")));
@@ -43,6 +56,10 @@ public class MyJSON {
 		}
 	}
 
+	/*
+	 * jUtil read JSON strings and parse them into either ArrayList or HashMap
+	 * After the parsing, will ask user if they want to save the file
+	 */
 	private static void jUtil() throws JSONException, ParseException, IOException {
 
 		Scanner reader = new Scanner(System.in);
@@ -77,6 +94,11 @@ public class MyJSON {
 		reader.close();
 	}
 
+	
+	/*
+	 * jInStream read a JSON file and parse them into either ArrayList or HashMap
+	 * After the parsing, will ask user if they want to save the file
+	 */
 	private static void jInStream() throws JSONException, ParseException, IOException {
 		Scanner reader = new Scanner(System.in);
 		String inputData = "";
@@ -121,6 +143,10 @@ public class MyJSON {
 		inScanner.close();
 	}
 	
+	/*
+	 * saveJSON saves serializable objects into JSON files
+	 * It ask user for the path which the file will be saved.
+	 */
 	private static void saveJSON(Serializable collection) throws JSONException, IOException{
 		System.out.println("-------------------------------------------------------");
 		System.out.print("Do you want to save the object to a new file?(y/n) ");
