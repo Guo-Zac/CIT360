@@ -9,17 +9,17 @@ import java.util.concurrent.TimeUnit;
 
 public class MyExecutorServiceFour {
 	public static void main(String[] args) throws InterruptedException, ExecutionException{
-		ExecutorService myES = Executors.newFixedThreadPool(4);
+		ExecutorService myES = Executors.newFixedThreadPool(5);
 		
-		for(int i = 0; i<1000; i++){
-			myES.submit(new MyRunnable("Task Number "+i));
-		}
+//		for(int i = 0; i<1000; i++){
+//			myES.submit(new MyRunnable("Task Number "+i));
+//		}
 		
-//		Future<Integer> myFuture = myES.submit(new MyCallable());
-//		System.out.println("future done? " + myFuture.isDone());
-//		Integer result = myFuture.get();
-//		System.out.println("future done? " + myFuture.isDone());
-//		System.out.print("result: " + result);
+		Future<Integer> myFuture = myES.submit(new MyCallable());
+		System.out.println("future done? " + myFuture.isDone());
+		Integer result = myFuture.get();
+		System.out.println("future done? " + myFuture.isDone());
+		System.out.print("result: " + result);
 	}
 	
 	public static class MyCallable implements Callable<Integer>{
