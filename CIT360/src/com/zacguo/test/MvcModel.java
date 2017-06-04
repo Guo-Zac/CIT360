@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class MvcModel {
 	ArrayList<String> dataArray;
-	
+	int listSize = 5;
 	/*
 	 * Give this model an initial data set
 	 */
@@ -27,5 +27,17 @@ public class MvcModel {
 	 */
 	public ArrayList<String> getArrayOfStrings(){
 		return dataArray;
+	}
+	
+	/*
+	 * add a rule of model array size limit
+	 */
+	public boolean isNotFull(){
+		if(dataArray.size()<5){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 }

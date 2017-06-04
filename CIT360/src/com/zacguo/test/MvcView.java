@@ -3,11 +3,8 @@ package com.zacguo.test;
 import java.util.*;
 
 public class MvcView {
-	/*
-	 * This is just a static method to print out an array into a box format
-	 * Views can have multiple methods to display data differently
-	 */
-	public static void printOut(ArrayList<String> inputStrings){
+
+	public void printOut(ArrayList<String> inputStrings){
 		String openEnd = "+----------------------------------------+";
 		String inTheMiddle = "|                                        |";
 		System.out.println(openEnd);
@@ -16,7 +13,7 @@ public class MvcView {
 		System.out.print("Add more strings: ");
 	}
 	
-	public static void printArray(ArrayList<String> inputStrings){
+	public void printArray(ArrayList<String> inputStrings){
 		String openEnd = "+----------------------------------------+";
 		String inTheMiddle = "|                                        |";
 		System.out.println(openEnd);

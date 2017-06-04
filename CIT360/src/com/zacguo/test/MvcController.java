@@ -30,7 +30,10 @@ public class MvcController {
 			System.exit(0);
 		}
 		
-		while(true){
+		/*
+		 * list size is limited, which the ability to check with method isNotFull()
+		 */
+		while(dataModel.isNotFull()){
 			
 			MvcView view = new MvcView();
 			
@@ -39,5 +42,12 @@ public class MvcController {
 			inputData = reader.next();
 			dataModel.addString(inputData);
 		}
+		
+		/*
+		 * when list is full, notice the user and display the full list.
+		 */
+		System.out.println();
+		System.out.println("List is full, here are the content");
+		System.out.print(dataModel.getArrayOfStrings());
 	}
 }
