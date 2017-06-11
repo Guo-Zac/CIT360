@@ -16,6 +16,10 @@ public class Home extends HttpServlet {
       // Actual logic goes here.
       PrintWriter out = response.getWriter();
       out.println("<h1>Home</h1>");
-      out.println("<a href='/Alink'>A link to somewhere else</a>");
+      out.println("<h2>Please put your name here, so we can welcome you.</h2>");
+      out.println("<form method='post' action='Alink'>");
+      out.println("Name <input type='text' name='user' required>");
+      out.println("<input type='submit' value='submit'>");
+      out.println("</form>");
   }
 }
