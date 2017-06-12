@@ -50,7 +50,8 @@ public class MyJSON {
 	private static void printMenu(String menuName) {
 		switch (menuName) {
 		case "initMenu":
-			MvcView.printArray(new ArrayList<String>(Arrays.asList("1. Read JSON String", "2. Read JSON File")));
+			MvcView view = new MvcView();
+			view.printArray(new ArrayList<String>(Arrays.asList("1. Read JSON String", "2. Read JSON File")));
 			System.out.print("Choose your option: ");
 			break;
 		}
