@@ -18,6 +18,17 @@ public class MyTestObject {
 		}
 	}
 	
+	public String nullForZac(String name){
+		if(name == "Zac"){
+			return null;
+		}
+		return name;
+	}
+	
+	public Object returnSameObject(Object obj){
+		return obj;
+	}
+	
 	public void arrayIndexOutofBounds(){
 		ArrayList<String> array = new ArrayList<String>(Arrays.asList("Littleton", "Boulder", "Rexburg"));
 		System.out.println(array.get(5));		

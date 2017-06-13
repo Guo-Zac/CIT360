@@ -21,6 +21,75 @@ public class MyTestObjectTest {
 		assertEquals(100, result);
 	}
 
+	//This test will use assertArrayEquals to verify arrays of expected and results.
+	@Test
+	public void testArray(){
+		MyTestObject test = new MyTestObject();
+		int[] value = {10,20,30,40};
+		int[] expected = {100,400,900,1600};
+		int[] result = new int[4];
+		for(int i = 0; i<value.length;i++){
+			result[i] = test.square(value[i]);
+		}
+		assertArrayEquals(expected,result);
+	}
+	
+	//This test will use assertTrue to test the result of square()
+	@Test
+	public void testTrue(){
+		MyTestObject test = new MyTestObject();
+		int result = test.square(10);
+		assertTrue(100 == result);
+	}
+	
+	//This test will use assertFalse to test the result of square()
+	@Test
+	public void testFalse(){
+		MyTestObject test = new MyTestObject();
+		int result = test.square(10);
+		assertFalse(100 != result);
+	}
+	
+	//This test will use assertNull to test if the result is null
+	@Test
+	public void testNull(){
+		MyTestObject test = new MyTestObject();
+		String result = test.nullForZac("Zac");
+		assertNull(result);
+	}
+	
+	//This test will use assertNotNull to test if the result is not null
+	@Test
+	public void testNotNull(){
+		MyTestObject test = new MyTestObject();
+		String result = test.nullForZac("Tom");
+		assertNotNull(result);
+	}
+	
+	//This test uses assertSame to test if two objects are actually the same one
+	@Test
+	public void testSameObject(){
+		MyTestObject test = new MyTestObject();
+		Object testObj = new MyTestObject();
+		Object result = test.returnSameObject(testObj);
+		assertSame(testObj, result);
+	}
+	
+	//This test uses assertNotSame to test if two objects are not the same one
+	@Test
+	public void testNotSameObject(){
+		MyTestObject test = new MyTestObject();
+		Object testObj = new MyTestObject();
+		Object result = test.returnSameObject(new MyTestObject());
+		assertNotSame(testObj, result);
+	}
+	
+	//fail() will just fail the test with a message.
+	@Test
+	public void failTest(){
+		fail("This test failed.");
+	}
+	
 	// This test will not run because of the @Ignore
 	@Ignore
 	@Test
